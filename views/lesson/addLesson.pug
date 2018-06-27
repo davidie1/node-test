@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right שיעור חדש
+  form(id='addLesson-form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') כותרת
+      .col-md-7
+        input.form-control(type='text', name='title', id='title', placeholder='כותרת', autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='client') לקוח
+      .col-md-7
+        select.form-control(name='client', id='client', autofocus, required)
+            if !clientId
+              option(selected) בחרי...
+            for client in clients
+                option(value=client._id, selected=(clientId===client._id))=client.name
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='date') תאריך
+      .col-md-7
+        - var defaultDate = date || Date.now()
+        input.form-control(type='datetime-local', name='date', id='date', autofocus, required, 
+        value=new Date(defaultDate - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8))
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right משך
+      .col-md-7
+        label.radio.col-md-3.text-right
+          input(type='radio', name='duration', value='hour', data-toggle='radio')
+          span שעה
+        label.radio.col-md-9.text-right
+          input(type='radio', name='duration', value='fortyFiveMinutes', checked, data-toggle='radio')
+          span שלושת רבעי שעה
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='specialPrice') מחיר מיוחד
+      .col-md-7
+        input.form-control(type='number', name='specialPrice', id='specialPrice', autofocus)
+    .form-group.row
+      .col-md-3
+      .col-md-2.col-form-label
+        button.w-100.btn.btn-success(type='submit')
+          i.fas.fa-user-plus.fa-sm
+          | הוסיפי

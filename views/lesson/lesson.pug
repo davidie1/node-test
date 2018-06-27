@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h2.text-right
+      i.fas.fa-pen-square.fa-sm
+      | פרטי / עריכת שיעור
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right לקוח
+      .col-md-7
+        a.text-right(href=`/clients/${lesson.client._id}`, title='פרופיל לקוח', data-toggle='tooltip', data-placement='right')
+            h4=lesson.client.name
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') כותרת
+      .col-md-7
+        input.form-control(type='text', name='title', id='title', value=lesson.title, autofocus)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') תאריך
+      .col-md-7
+        input.form-control(type='datetime-local', name='date', id='date', autofocus, 
+        value=new Date(lesson.date - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8))
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right משך
+      .col-md-7
+        label.radio.col-md-3.text-right
+          input(type='radio', name='duration', value='hour', data-toggle='radio', checked=(lesson.duration==='hour'))
+          span שעה
+        label.radio.col-md-9.text-right
+          input(type='radio', name='duration', value='fortyFiveMinutes', data-toggle='radio', checked=(lesson.duration!=='hour'))
+          span שלושת רבעי שעה
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='specialPrice') מחיר מיוחד
+      .col-md-7
+        input.form-control(type='number', name='specialPrice', id='specialPrice', autofocus, 
+        value=(lesson.price !== lesson.client.tariff[lesson.duration]) ? lesson.price : undefined)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right סטטוס
+      .col-md-7
+        label.radio.col-md-3.text-right
+          input(type='radio', name='status', value='attending', data-toggle='radio', checked=(lesson.status==='attending'))
+          span=(Date.now() > lesson.date) ? 'בוצע' : 'מיועד'
+        label.radio.col-md-3.text-right
+          input(type='radio', name='status', value='postponed', data-toggle='radio', checked=(lesson.status==='postponed'))
+          span נדחה
+        label.radio.col-md-6.text-right
+          input(type='radio', name='status', value='canceled', data-toggle='radio', checked=(lesson.status==='canceled'))
+          span בוטל
+    .form-group.row
+      .col-md-3
+      .col-md-2.col-form-label
+        button.w-100.btn.btn-success(type='submit')
+          i.fas.fa-edit.fa-sm
+          | עדכני

@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h2.text-right
+      i.fas.fa-users.fa-sm
+      | לקוחות
+  input.form-control.custom-search(type='text', id='clientsSearch', placeholder='חפשי...', autofocus)
+  br
+  div.table-responsive
+    table.table.table-hover(id='clientsTable')
+      thead
+        tr
+          th.text-right תמונה 
+          th.text-right שם
+          th.text-right מייל
+          th.text-right מספר טלפון
+          th.text-right חוב   
+      tbody
+        for client in clients
+          tr(onclick=`window.location='/clients/${client._id}'`, title='חשבון לקוח', data-toggle='tooltip')
+            td.text-right
+              img(src=client.gravatar(), class='profile', width='30', height='30')
+            td.text-right= client.name
+            td.text-right= client.email
+            td.text-right= client.phoneNumber  
+            td.text-right(class=(parseInt(client.debt) <= 0) ? 'text-success' : 'text-danger',
+            title=(parseInt(client.debt) <= 0) ? 'זכות' : 'חוב', data-toggle='tooltip', data-placement="right")= client.debt + ' '
+              label &#8362

@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right פרטי חשבון
+  form(action='/account/profile', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') מייל
+      .col-md-7
+        input.form-control(type='email', name='email', id='email', value=user.email)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') שם
+      .col-md-7
+        input.form-control(type='text', name='name', id='name', value=user.name)
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn.btn-primary(type='submit')
+          i.fas.fa-edit.fa-sm
+          | עדכני חשבון
+
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right שינוי סיסמה
+  form(action='/account/password', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') סיסמה חדשה
+      .col-md-7
+        input.form-control(type='password', name='password', id='password')
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') אשרי סיסמה
+      .col-md-7
+        input.form-control(type='password', name='confirmPassword', id='confirmPassword')
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn-primary(type='submit')
+          i.fas.fa-lock.fa-sm
+          | שני סיסמה

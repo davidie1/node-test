@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right איפוס סיסמה
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    p.pb-4.text-right הכניסי את כתובת האימייל שלך ותקבלי מייל עם הוראות לאיפוס הסיסמה.
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') אימייל
+      .col-md-7
+        input.form-control(type='email', name='email', id='email', placeholder='אימייל', autofocus, required)
+    .form-group.row
+      .col-md-3
+      .col-md-2.pl-2.col-form-label
+        button.w-100.btn.btn-primary(type='submit')
+          i.fas.fa-key.fa-sm
+          | אפסי סיסמה
+        

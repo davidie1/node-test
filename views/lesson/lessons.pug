@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h2.text-right
+      i.far.fa-calendar-check
+      | לו"ז
+    h5
+      a(data-offset=parseInt(offset - 1)).badge.text-info
+        i(title='שבוע הקודם', data-toggle='tooltip').fas.custom-fas.fa-arrow-right
+      a(data-offset=0).badge.text-info
+        | השבוע
+      a(data-offset=parseInt(offset + 1)).badge.text-info
+        i(title='שבוע הבא', data-toggle='tooltip').fas.custom-far.fa-arrow-left
+  div.table-responsive(id='tableParent')
+    table.table.table-bordered(id='lessons-table')
+        thead
+        tr
+          th.text-right(scope='col') #
+          for day, index in week
+            th.text-right(scope='col' class= (index === parseInt(today)) ? 'today' : undefined)= day       
+        tbody
+          for hour in hours
+            tr
+              th.text-right(scope='row')=hour
+              - for (var day = 0; day < 7; day++)
+                td(class= (day===parseInt(today)) ? 'today' : undefined, title='לחצי פעמיים כדי להוסיף שיעור בזמן זה', data-toggle='tooltip')
+    for lesson in lessons
+      - var dur = lesson.duration === 'hour' ? 60 : 45
+      a(title='פרטי / עריכת שיעור', data-toggle='tooltip', data-start=lesson.date, 
+      data-duration=dur, href=`/lessons/${lesson._id}`).custom-absolute.badge.text-truncate=new Date(lesson.date.getTime() + dur * 60000).toLocaleTimeString().slice(0, -3)+' - '+lesson.date.toLocaleTimeString().slice(0, -3)
+        .mt-1
+          b.fr.pr-1=lesson.clientName
+          em.fl.pl-1=lesson.title

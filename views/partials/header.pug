@@ -1,0 +1,36 @@
+.navbar.navbar-light.fixed-top.navbar-expand-md
+  .container
+    a.navbar-brand(href='/')
+      i.fas.fa-pencil-alt
+      | שיעורים פרטיים
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span.sr-only Toggle navigation
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.nav-item(class=(title === 'Status') ? 'active' : undefined)
+          a.nav-link(href='/status') Status
+        if user
+          li.nav-item(class=(title === 'לוז') ? 'active' : undefined)
+            a.nav-link(href='/') לו"ז
+          li.nav-item(class=(title === 'לקוחות') ? 'active' : undefined)
+            a.nav-link(href='/clients') לקוחות
+      if user
+        ul.nav.navbar-nav.mr-auto
+          if (title === 'לוז' || title === 'הוסיפי שיעור')
+            li.nav-item(class=(title === 'הוסיפי שיעור') ? 'active' : undefined)
+              a.nav-link(href='/add-lesson') הוסיפי שיעור
+          if (title === 'לקוחות' || title === 'הוסיפי לקוח')
+            li.nav-item(class=(title === 'הוסיפי לקוח') ? 'active' : undefined)
+              a.nav-link(href='/add-client') הוסיפי לקוח
+          li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+            a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+              img(src=user.gravatar(60))
+              span= user.name || user.email || user.id
+              i.caret
+            ul.dropdown-menu
+              li.dropdown-item.text-right
+                a(href='/account') החשבון שלי
+              li.divider.dropdown-item
+              li.dropdown-item.text-right
+                a(href='/logout') התנתקי

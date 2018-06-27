@@ -1,0 +1,233 @@
+@import "themes/default/variables";
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/@ladjs/bootstrap-social/bootstrap-social.scss";
+@import "lib/font-awesome/fontawesome";
+@import "lib/font-awesome/fa-brands";
+@import "lib/font-awesome/fa-regular";
+@import "lib/font-awesome/fa-solid";
+
+@import "themes/default/default";
+
+// Scaffolding
+// -------------------------
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 80px;
+  margin-bottom: 75px;
+  font-size: 14px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+
+  p, ul {
+    margin-bottom: 0;
+  }
+}
+
+// Navbar
+// -------------------------
+
+.navbar-nav img {
+  width: 30px;
+  min-height: 30px;
+  margin: -15px 15px -15px;
+}
+
+.navbar{
+  padding: 0px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.navbar-brand{
+  font-size: 18px;
+  float: left;
+  margin-left: 15px;
+}
+
+.navbar-toggler {
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.navbar-toggler-icon {
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  left: initial;
+  right: 0;
+}
+
+// Alerts
+// -------------------------
+
+.alert {
+  margin-top: 20px;
+}
+
+// Thumbnails
+// -------------------------
+
+.thumbnail {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: 0 0 5px #ccc, inset 0 0 0 #000;
+}
+
+
+// Custom
+// ------------------------
+
+.container {
+  direction: rtl;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right
+}
+
+// Font Icons
+// -------------------------
+.far, .fab, .fas {
+  margin-left: 6px;
+  
+}
+
+// Header
+// ------------------------
+.dropdown-menu {
+  left: 0;
+  right: initial;
+}
+
+// Cllients
+// -------------------------
+.custom-search {
+  border-radius: 4px;
+}
+
+#clientsTable tbody tr {
+  cursor: pointer;
+}
+
+// Lessons
+// --------------------------
+.custom-fas {
+  margin-left: 30px;
+  margin-right: 0;
+}
+
+.custom-far {
+  margin-right: 30px;
+  margin-left: 0;
+}
+
+
+#tableParent {
+  position: relative;
+}
+
+.today {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.custom-absolute {
+  position: absolute;
+  z-index: 6;
+  box-shadow: 0 10px 20px rgba(0,0,0,.1), inset 0 -3px 0 rgba(0,0,0,.2);
+  flex-shrink: 1;
+}
+
+// Client
+// --------------------------
+
+.table-wrapper {
+  background: #F5F7FA;
+  padding: 20px;	
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.table-title {
+  padding-bottom: 10px;
+  margin: 0 0 10px;
+}
+
+.table-title .add-new {
+  float: right;
+  font-weight: bold;
+  text-shadow: none;
+  border-radius: 50px;
+}
+
+#paymentsTable {
+  table-layout: fixed;
+}
+
+#paymentsTable tr th, table.table tr td {
+  border-color: #e9e9e9;
+}
+
+#paymentsTable td a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+}
+
+#paymentsTable td a.add {
+  color: #27C46B;
+}
+
+#paymentsTable td a.edit {
+  color: #FFC107;
+}
+
+#paymentsTable td a.delete {
+  color: #E34724;
+}
+
+#paymentsTable td .add {
+  display: none;
+}
+
+#paymentsTable td .delete {
+  display: none;
+}
+
+#paymentsTable td i {
+  font-size: 25px;
+}
+
+#paymentsTable .form-control {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 0.75rem;
+}
+
+#paymentsTable .form-control.error {
+  border-color: #f50000;
+}
+
+.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

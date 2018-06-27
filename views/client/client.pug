@@ -1,0 +1,106 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h2.text-right
+      i.fas.fa-user.fs-sm
+      | חשבון לקוח - #{client.name}
+  .btn-group.d-flex(role='group')
+    a.btn.btn-primary(href=`/lessons/?client=${client._id}`).w-100
+      i.far.fa-calendar-check.fa-sm
+      | צפי בשיעורים
+    a.btn.btn-primary(href=`/add-lesson/?client=${client._id}`).w-100
+      i.far.fa-calendar-plus.fs-sm
+      | הוסיפי שיעור
+  br
+  .row.justify-content-center
+    h4.font-weight-bold.text-center חוב: &nbsp
+    h4.text-center(class=(parseInt(client.debt) <= 0) ? 'text-success' : 'text-danger',
+            title=(parseInt(client.debt) <= 0) ? 'זכות' : 'חוב', data-toggle='tooltip')=client.debt
+  br
+  .table-wrapper.col-md-6.mx-auto
+    .table-title
+        button.btn.btn-info.add-new(type='button')
+            i.fas.fa-plus
+            | הוסיפי תשלום
+        h3.text-center.offset-md-2 תשלומים
+    form(method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      table.table.table-bordered(id='paymentsTable')
+        thead
+          tr
+            th.text-right תאריך
+            th.text-right סכום
+            th.text-right אמצעי
+            th.text-center #
+        tbody
+          //- Just for js
+          td.text-center(hidden)
+                  a.add(data-toggle="tooltip", title='הוסיפי')
+                    i.fas.fa-plus-circle
+                  a.edit(data-toggle="tooltip", title='ערכי')
+                    i.fas.fa-edit
+                  a.delete(data-toggle="tooltip", title='מחקי')
+                    i.fas.fa-trash
+          for payment in client.payments.sort(a, b => b.date - a.date).reverse()
+              tr(id=payment._id)
+                td.text-right=(payment.date) ? payment.date.toISOString().substring(0, 10).split('-').reverse().join('-') : null
+                td.text-right=payment.amount
+                td.text-right=(payment.method === 'cash') ? "מזומן" : "צ'ק"
+                td.text-center
+                    a.add(data-toggle="tooltip", title='הוסיפי')
+                      i.fas.fa-plus-circle
+                    a.edit(data-toggle="tooltip", title='ערכי')
+                      i.fas.fa-edit
+                    a.delete(data-toggle="tooltip", title='מחקי')
+                      i.fas.fa-trash
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right עדכון
+  form(id='updateClient-form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') שם
+      .col-md-7
+        input.form-control(type='text', name='name', id='name', value=client.name, autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') מייל
+      .col-md-7
+        input.form-control(type='email', name='email', id='email', value=client.email, autofocus)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='phoneNumber') מספר טלפון
+      .col-md-7
+        input.form-control(type='tel', name='phoneNumber', id='phoneNumber', value=client.phoneNumber)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='age') גיל
+      .col-md-7
+        input.form-control(type='number', name='age', id='age', value=client.age)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right מגדר
+      .col-md-7
+        label.radio.col-md-3.text-right
+          input(type='radio', name='sex', value='female', data-toggle='radio', checked=client.sex==='female')
+          span בת
+        label.radio.col-md-9.text-right
+          input(type='radio', name='sex', value='male', data-toggle='radio', checked=client.sex==='male')
+          span בן
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='city') עיר
+      .col-md-7
+        select.form-control(name='city', id='city', autofocus, required)
+            option(value='kiryat yearim', selected=client.city==='kiryat yearim') קרית יערים
+            option(value='mevaseret', selected=client.city==='mevaseret') מבשרת
+            option(value='beit shemesh', selected=client.city==='beit shemesh') בית שמש
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='hourTariff') תעריף לשעה
+      .col-md-7
+        input.form-control(type='number', name='hourTariff', id='hourTariff', value=client.tariff.hour)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='fortyFiveMinutesTariff') תעריף לשלושת רבעי שעה
+      .col-md-7
+        input.form-control(type='number', name='fortyFiveMinutesTariff', id='fortyFiveMinutesTariff', value=client.tariff.fortyFiveMinutes)
+    .form-group.row
+      .col-md-3
+      .col-md-2.col-form-label
+        button.w-100.btn.btn-success(type='submit')
+          i.fas.fa-edit.fa-sm
+          | עדכני

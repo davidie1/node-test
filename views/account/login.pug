@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3.text-right התחברות
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') מייל
+      .col-md-7
+        input.form-control(type='email', name='email', id='email', placeholder='מייל', autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') סיסמה
+      .col-md-7
+        input.form-control(type='password', name='password', id='password', placeholder='סיסמה', required)
+    .form-group.row
+      .col-md-3
+      .col-md-2.col-form-label
+        button.w-100.btn.btn-primary(type='submit')
+          i.far.fa-user.fa-sm
+          | התחברי
+      a.pr-3.btn.btn-link(href='/forgot') שכחת את הסיסמה?
